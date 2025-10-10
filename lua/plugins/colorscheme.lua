@@ -4,7 +4,6 @@ return {
     "scottmckendry/cyberdream.nvim",
     lazy = false,
     priority = 1000,
-    transparent = true,
     opts = {
       transparent = true,
       styles = {
@@ -18,12 +17,6 @@ return {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "cyberdream",
-      transparent_mode = true,
-      transparent = true,
-      styles = {
-        sidebars = "transparent",
-        floats = "transparent",
-      },
     },
   },
 }
