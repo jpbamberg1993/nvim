@@ -1,23 +1,3 @@
--- The ASCII caracters used in the animation
--- ⠀⠁⠂⠃⠄⠅⠆⠇⠈⠉⠊⠋⠌⠍⠎⠏
--- ⠐⠑⠒⠓⠔⠕⠖⠗⠘⠙⠚⠛⠜⠝⠞⠟
--- ⠠⠡⠢⠣⠤⠥⠦⠧⠨⠩⠪⠫⠬⠭⠮⠯
--- ⠰⠱⠲⠳⠴⠵⠶⠷⠸⠹⠺⠻⠼⠽⠾⠿
--- ⡀⡁⡂⡃⡄⡅⡆⡇⡈⡉⡊⡋⡌⡍⡎⡏
--- ⡐⡑⡒⡓⡔⡕⡖⡗⡘⡙⡚⡛⡜⡝⡞⡟
--- ⡠⡡⡢⡣⡤⡥⡦⡧⡨⡩⡪⡫⡬⡭⡮⡯
--- ⡰⡱⡲⡳⡴⡵⡶⡷⡸⡹⡺⡻⡼⡽⡾⡿
--- ⢀⢁⢂⢃⢄⢅⢆⢇⢈⢉⢊⢋⢌⢍⢎⢏
--- ⢐⢑⢒⢓⢔⢕⢖⢗⢘⢙⢚⢛⢜⢝⢞⢟
--- ⢠⢡⢢⢣⢤⢥⢦⢧⢨⢩⢪⢫⢬⢭⢮⢯
--- ⢰⢱⢲⢳⢴⢵⢶⢷⢸⢹⢺⢻⢼⢽⢾⢿
--- ⣀⣁⣂⣃⣄⣅⣆⣇⣈⣉⣊⣋⣌⣍⣎⣏
--- ⣐⣑⣒⣓⣔⣕⣖⣗⣘⣙⣚⣛⣜⣝⣞⣟
--- ⣤⣡⣢⣣⣤⣥⣦⣧⣨⣩⣪⣫⣬⣭⣮⣯
--- ⣰⣱⣲⣳⣴⣵⣶⣷⣸⣹⣺⣻⣼⣽⣾⣿
-
--- The majority of the function are in the end
-
 local M = {}
 
 M.shouldPlayAnimation = true
@@ -461,3 +441,151 @@ M.theAnimation = function(callback)
 end
 
 return M
+-- local M = {}
+--
+-- local art = [[
+--   _________________________________________________________
+--  / \                                                      \
+-- |   |                                                      |
+--  \_ |                                                      |
+--     |                                                      |
+--     |              ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿          |
+--     |              ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿          |
+--     |              ⣿⣿⣿⣿⠉⠉⠉⠹⠛⠛⠋⠉⠙⠛⠛⠛⠛⠛⠻⠿⠿⠿⠿⠿⠋⠀⣿⣿⣿⣿          |
+--     |              ⣿⣿⣿⣿⣤⣤⣄⣀⣀⣀⠀⠀⠀⠀⠀⠀⣀⣀⣀⣀⣠⣤⣤⣤⣤⣤⣿⣿⣿⣿          |
+--     |              ⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿          |
+--     |                                                      |
+--     |                  I just wanna sleep                  |
+--     |                                                      |
+--     |   ___________________________________________________|___
+--     |  /                                                      /
+--     \_/_______________________________________________________/
+-- ]]
+--
+-- local lines = vim.split(art, "\n")
+-- if lines[1] == "" then
+--   table.remove(lines, 1)
+-- end
+-- while lines[#lines] == "" do
+--   table.remove(lines)
+-- end
+--
+-- -- pad every line to equal display width (snacks centers lines individually)
+-- local width = 0
+-- for _, l in ipairs(lines) do
+--   width = math.max(width, vim.api.nvim_strwidth(l))
+-- end
+-- for i, l in ipairs(lines) do
+--   lines[i] = l .. (" "):rep(width - vim.api.nvim_strwidth(l))
+-- end
+--
+-- -- rows 1-4: rolled top / rows 5-14: body / last 3 rows: rolled bottom edge
+-- local TOP, BODY = 4, 10
+-- local BLANK = lines[5] -- an empty bordered parchment row
+--
+-- -- borders for key rows, matching the art body rows exactly
+-- local BORDER_L = "    |"
+-- local BORDER_R = "|   "
+-- local CONTENT_W = width - vim.api.nvim_strwidth(BORDER_L) - vim.api.nvim_strwidth(BORDER_R)
+--
+-- M.shouldPlayAnimation = true
+-- M.animating = false
+-- M.step = 0 -- rows revealed: 0..BODY reveals the banner, then one key per step
+-- M.nkeys = 9 -- refreshed from the preset on every render
+--
+-- M.ascii = function(counting, callback)
+--   if not M.shouldPlayAnimation then
+--     M.animating = false
+--     return
+--   end
+--
+--   local maxStep = BODY + M.nkeys
+--   M.step = math.min(maxStep, math.floor(counting))
+--   Snacks.dashboard.update()
+--
+--   if counting >= maxStep + 1 then
+--     M.animating = false -- a scroll unrolls once; no loop
+--   end
+-- end
+--
+-- M.theAnimation = function(callback)
+--   if M.animating then
+--     return
+--   end
+--   M.animating = true
+--   require("snacks").animate(1, BODY + M.nkeys + 1, function(value, ctx)
+--     M.ascii(value, callback)
+--   end, {
+--     duration = { total = 1300 }, -- bare number would mean ms PER STEP
+--     fps = 30,
+--     easing = "outQuad",
+--   })
+-- end
+--
+-- -- section builders ----------------------------------------------------------
+--
+-- -- top roll + however many banner rows are revealed
+-- M.header = function(self)
+--   M.nkeys = #self.opts.preset.keys
+--   local shown = math.min(M.step, BODY)
+--   local out = {}
+--   for i = 1, TOP + shown do
+--     out[#out + 1] = lines[i]
+--   end
+--   return table.concat(out, "\n")
+-- end
+--
+-- -- one key rendered as a bordered parchment row; padding is measured with
+-- -- strwidth so every row is exactly the scroll's width
+-- local function key_line(k)
+--   local icon = (k.icon or "") .. " "
+--   local desc = k.desc or ""
+--   local keycap = k.key or ""
+--   local pad = CONTENT_W
+--     - 2
+--     - vim.api.nvim_strwidth(icon)
+--     - vim.api.nvim_strwidth(desc)
+--     - vim.api.nvim_strwidth(keycap)
+--     - 2
+--   return {
+--     { BORDER_L, hl = "header" },
+--     { "  " },
+--     { icon, hl = "icon" },
+--     { desc, hl = "desc" },
+--     { (" "):rep(math.max(1, pad)) },
+--     { keycap, hl = "key" },
+--     { "  " },
+--     { BORDER_R, hl = "header" },
+--   }
+-- end
+--
+-- -- keys revealed so far, as real actionable items inside the borders
+-- M.keys = function(self)
+--   local keys = vim.deepcopy(self.opts.preset.keys)
+--   local shown = math.max(0, math.min(M.step - BODY, #keys))
+--   local items = {}
+--   for i = 1, shown do
+--     items[#items + 1] = {
+--       text = key_line(keys[i]),
+--       action = keys[i].action,
+--       key = keys[i].key,
+--     }
+--   end
+--   return items
+-- end
+--
+-- -- blank row + rolled bottom edge, plus trailing blank lines standing in for
+-- -- everything not yet revealed, so the dashboard never re-centers mid-unroll
+-- M.footer = function(self)
+--   local nkeys = #self.opts.preset.keys
+--   local bodyShown = math.min(M.step, BODY)
+--   local keysShown = math.max(0, math.min(M.step - BODY, nkeys))
+--   local out = { BLANK }
+--   for i = TOP + BODY + 1, #lines do
+--     out[#out + 1] = lines[i]
+--   end
+--   local pad = (BODY - bodyShown) + (nkeys - keysShown)
+--   return table.concat(out, "\n") .. ("\n"):rep(pad)
+-- end
+--
+-- return M
