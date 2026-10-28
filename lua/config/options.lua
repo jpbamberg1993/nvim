@@ -18,3 +18,6 @@ vim.opt.tabstop = 4 -- tab char displays as 4 cols
 vim.opt.shiftwidth = 4 -- >>, <<, autoindent width
 vim.opt.softtabstop = 4 -- <Tab>/<BS> in insert move 4 cols
 vim.opt.expandtab = true -- insert spaces (set false for real tab chars)
+
+-- Root = git repo first, so monorepo subprojects (web-ui, api) don't narrow pickers to the LSP root
+vim.g.root_spec = { { ".git", "lua" }, "lsp", "cwd" }

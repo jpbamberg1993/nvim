@@ -14,7 +14,6 @@ return {
           SnacksDashboardHeader = { fg = "#b8944d" },
         },
       })
-      vim.cmd("colorscheme parchment")
       for _, g in ipairs({
         "NormalFloat",
         "FloatBorder",

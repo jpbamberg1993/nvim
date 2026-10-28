@@ -2,6 +2,11 @@ return {
   {
     "sindrets/diffview.nvim",
     cmd = { "DiffviewOpen", "DiffviewFileHistory" },
+    opts = {
+      file_panel = {
+        win_config = { width = 45 },
+      },
+    },
     keys = {
       { "<leader>gn", "<cmd>DiffviewOpen develop...HEAD<cr>", desc = "Diff vs develop" },
       { "<leader>gp", "<cmd>DiffviewClose<cr>", desc = "Close diffview" },
